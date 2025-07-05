@@ -514,36 +514,6 @@ export default function AboutPage() {
         </div>
       </footer>
 
-      {/* Sticky Bottom Navigation - Mobile Only */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
-        <div className="flex justify-around py-3">
-          <Link
-            href="/"
-            className="flex flex-col items-center space-y-1 text-gray-600 hover:text-amber-900 transition-colors"
-          >
-            <div className="w-6 h-6 bg-gray-400 rounded"></div>
-            <span className="text-xs font-medium">HOME</span>
-          </Link>
-          <Link href="/about" className="flex flex-col items-center space-y-1 text-amber-900">
-            <div className="w-6 h-6 bg-amber-900 rounded"></div>
-            <span className="text-xs font-medium">ABOUT</span>
-          </Link>
-          <Link
-            href="#experiences"
-            className="flex flex-col items-center space-y-1 text-gray-600 hover:text-amber-900 transition-colors"
-          >
-            <div className="w-6 h-6 bg-gray-400 rounded"></div>
-            <span className="text-xs font-medium">TRAVEL</span>
-          </Link>
-          <Link
-            href="#contact"
-            className="flex flex-col items-center space-y-1 text-gray-600 hover:text-amber-900 transition-colors"
-          >
-            <div className="w-6 h-6 bg-gray-400 rounded"></div>
-            <span className="text-xs font-medium">CONTACT</span>
-          </Link>
-        </div>
-      </div>
     </PageTransition>
   )
 }
