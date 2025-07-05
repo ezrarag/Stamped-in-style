@@ -1,12 +1,16 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ChevronDown, Menu } from "lucide-react"
+import { ChevronDown, Menu, X } from "lucide-react"
 import Link from "next/link"
 import AnimatedLogo from "@/components/animated-logo"
 import Image from "next/image"
+import { motion } from "framer-motion"
+import { useState } from "react"
 
 export default function HomePage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Background Image */}
@@ -90,12 +94,66 @@ export default function HomePage() {
                 variant="ghost"
                 size="icon"
                 className="w-12 h-12 rounded-full border-2 border-white/30 text-white hover:bg-white/10"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                <Menu className="h-5 w-5" />
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md border-t border-white/10"
+          >
+            <nav className="container mx-auto px-6 py-6 space-y-4">
+              <Link
+                href="/about"
+                className="block text-white text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                ABOUT
+              </Link>
+              <Link
+                href="#destinations"
+                className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                DESTINATIONS
+              </Link>
+              <Link
+                href="#experiences"
+                className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                EXPERIENCES
+              </Link>
+              <Link
+                href="#journey"
+                className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                OUR JOURNEY
+              </Link>
+              <Link
+                href="#gallery"
+                className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                GALLERY
+              </Link>
+              <div className="pt-4">
+                <Button className="w-full bg-white text-amber-900 hover:bg-amber-100 py-3 rounded-full font-medium tracking-wide text-sm uppercase">
+                  GET STARTED
+                </Button>
+              </div>
+            </nav>
+          </motion.div>
+        )}
       </header>
 
       {/* Hero Content */}
@@ -153,6 +211,37 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Sticky Bottom Navigation - Mobile Only */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
+        <div className="flex justify-around py-3">
+          <Link href="/" className="flex flex-col items-center space-y-1 text-amber-900">
+            <div className="w-6 h-6 bg-amber-900 rounded"></div>
+            <span className="text-xs font-medium">HOME</span>
+          </Link>
+          <Link
+            href="/about"
+            className="flex flex-col items-center space-y-1 text-gray-600 hover:text-amber-900 transition-colors"
+          >
+            <div className="w-6 h-6 bg-gray-400 rounded"></div>
+            <span className="text-xs font-medium">ABOUT</span>
+          </Link>
+          <Link
+            href="#experiences"
+            className="flex flex-col items-center space-y-1 text-gray-600 hover:text-amber-900 transition-colors"
+          >
+            <div className="w-6 h-6 bg-gray-400 rounded"></div>
+            <span className="text-xs font-medium">TRAVEL</span>
+          </Link>
+          <Link
+            href="#contact"
+            className="flex flex-col items-center space-y-1 text-gray-600 hover:text-amber-900 transition-colors"
+          >
+            <div className="w-6 h-6 bg-gray-400 rounded"></div>
+            <span className="text-xs font-medium">CONTACT</span>
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }

@@ -165,6 +165,13 @@ export default function AboutPage() {
             >
               <nav className="container mx-auto px-4 py-6 space-y-4">
                 <Link
+                  href="/"
+                  className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  HOME
+                </Link>
+                <Link
                   href="/about"
                   className="block text-white text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
                   onClick={() => setIsMobileMenuOpen(false)}
