@@ -27,7 +27,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <div className="w-16 h-16 rounded-full border-white/30 flex items-center justify-center bg-white/10 backdrop-blur-sm border-0">
+              <div className="w-16 h-16 rounded-full border-white/30 flex items-center justify-center backdrop-blur-sm border-0 bg-transparent">
                 <Image
                   src="/complete-logo.png"
                   alt="Stamped in Style Travel Co."
