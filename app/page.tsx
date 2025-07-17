@@ -51,16 +51,16 @@ export default function HomePage() {
                 ABOUT
               </Link>
               <Link
-                href="#destinations"
+                href="#curated"
                 className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
               >
-                DESTINATIONS
+                CURATED
               </Link>
               <Link
-                href="#experiences"
+                href="#build"
                 className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
               >
-                EXPERIENCES
+                BUILD
               </Link>
               <Link
                 href="#journey"
@@ -119,18 +119,18 @@ export default function HomePage() {
                 ABOUT
               </Link>
               <Link
-                href="#destinations"
+                href="#curated"
                 className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                DESTINATIONS
+                CURATED
               </Link>
               <Link
-                href="#experiences"
+                href="#build"
                 className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                EXPERIENCES
+                BUILD
               </Link>
               <Link
                 href="#journey"
@@ -185,8 +185,8 @@ export default function HomePage() {
 
       {/* Hidden sections for navigation (can be revealed later) */}
       <div className="hidden">
-        <section id="destinations"></section>
-        <section id="experiences"></section>
+        <section id="curated"></section>
+        <section id="build"></section>
         <section id="journey"></section>
         <section id="gallery"></section>
         <section id="booking"></section>

@@ -282,23 +282,15 @@ export default function AboutPage() {
 
               <div className="space-y-4 md:space-y-6 text-gray-700 leading-relaxed">
                 <p className="text-base md:text-lg">
-                  From the neon buzz of Tokyo to the laid-back beaches of Jamaica, the vibrant culture of Cabo, and the
-                  coastal charm of Ensenada, Amber's passport tells the story of a woman who doesn't just visit places —
-                  she experiences them deeply. Each destination she's touched has left a stamp not just in her travel
-                  book, but in her perspective — and now, she's building something to share that with the world.
+                Hello, I am Amber Harris. I am the founder, CEO, and lead curator or Stamped in Style Travel Group. With a passion for adventure, culture, and unforgettable experiences. I launched Stamped in Style Travel Group to help people explore the world with confidence, ease, and a touch of style. 
                 </p>
 
                 <p className="text-base md:text-lg">
-                  As the founder of Stamped, Amber brings a hands-on, heart-first approach to travel. She knows the
-                  stress, planning, and uncertainty that can come with booking the perfect trip — and she's made it her
-                  mission to eliminate that for her clients. Whether you're seeking a weekend escape or a life-changing
-                  journey, she crafts every experience with intention, style, and care.
+                At Stamped in Style Travel Group, we specialize in crafting personalized travel experiences that go beyond the typical itinerary.  Whether you’re planning a luxurious getaway, a group retreat, a romantic escape, or a once-in-a- lifetime adventure, I’m here to ensure every detail is handled with care and creativity. 
                 </p>
 
                 <p className="text-base md:text-lg">
-                  Amber is a self-starter and a relentless worker — someone who's spent years refining the art of travel
-                  not just for herself, but for the people around her. She believes that everyone deserves the kind of
-                  travel that feels both luxurious and personal, and with Stamped, she's made that a reality.
+                While this is a new business venture I have launched, with my planning expertise and a deep commitment to exceptional service, I believe that travel should be more than just a trip. It should be a memory that stays with you forever. Let’s turn your travel dreams into reality, one STAMP at a TIME!!! 
                 </p>
               </div>
             </motion.div>
