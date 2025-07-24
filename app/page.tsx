@@ -51,7 +51,7 @@ export default function HomePage() {
                 ABOUT
               </Link>
               <Link
-                href="#curated"
+                href="/curated"
                 className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
               >
                 CURATED
