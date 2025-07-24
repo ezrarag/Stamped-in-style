@@ -57,7 +57,7 @@ export default function HomePage() {
                 CURATED
               </Link>
               <Link
-                href="#build"
+                href="/build"
                 className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
               >
                 BUILD
@@ -85,8 +85,8 @@ export default function HomePage() {
               </div>
 
               {/* Get Started Button */}
-              <Button className="hidden md:flex bg-transparent border-2 border-white text-white hover:bg-white hover:text-amber-900 px-6 py-2 rounded-full font-medium tracking-wide text-sm uppercase transition-all duration-300">
-                GET STARTED
+              <Button className="hidden md:flex bg-transparent border-2 border-white text-white hover:bg-white hover:text-amber-900 px-6 py-2 rounded-full font-medium tracking-wide text-sm uppercase transition-all duration-300" asChild>
+                <Link href="/dashboard/client">GET STARTED</Link>
               </Button>
 
               {/* Mobile Menu */}
@@ -126,7 +126,7 @@ export default function HomePage() {
                 CURATED
               </Link>
               <Link
-                href="#build"
+                href="/build"
                 className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -147,8 +147,8 @@ export default function HomePage() {
                 GALLERY
               </Link>
               <div className="pt-4">
-                <Button className="w-full bg-white text-amber-900 hover:bg-amber-100 py-3 rounded-full font-medium tracking-wide text-sm uppercase">
-                  GET STARTED
+                <Button className="w-full bg-white text-amber-900 hover:bg-amber-100 py-3 rounded-full font-medium tracking-wide text-sm uppercase" asChild>
+                  <Link href="/dashboard/client">GET STARTED</Link>
                 </Button>
               </div>
             </nav>
@@ -175,10 +175,13 @@ export default function HomePage() {
 
           {/* CTA Button */}
           <Button
+            asChild
             size="lg"
             className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-amber-900 px-12 py-4 text-base font-medium tracking-[0.1em] uppercase rounded-full transition-all duration-300"
           >
-            EXPERIENCE THE JOURNEY
+            <Link href="/dashboard/client">
+              EXPERIENCE THE JOURNEY
+            </Link>
           </Button>
         </div>
       </div>
