@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,7 +13,7 @@ const SUGGESTIONS = [
   "Private villa", "Infinity pool", "Michelin dining", "Yoga retreat", "Private guide", "Eco-lodge", "Wine tour", "Glacier hike"
 ];
 
-export default function CuratedPage() {
+function CuratedPageContent() {
   const [useAI, setUseAI] = useState(false);
   const [loading, setLoading] = useState(false);
   const [trips, setTrips] = useState<any[]>([]);
@@ -204,5 +204,13 @@ export default function CuratedPage() {
         </AnimatePresence>
       )}
     </div>
+  );
+}
+
+export default function CuratedPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-12 text-amber-700">Loading...</div>}>
+      <CuratedPageContent />
+    </Suspense>
   );
 } 
