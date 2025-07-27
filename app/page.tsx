@@ -1,15 +1,25 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ChevronDown, Menu, X } from "lucide-react"
+import { ChevronDown, Menu, X, User, MapPin, Hammer, Route, Image as ImageIcon, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import AnimatedLogo from "@/components/animated-logo"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
+import BookingModal from "@/components/booking-modal"
 
 export default function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+
+  const menuItems = [
+    { name: "ABOUT", href: "/about", icon: User, description: "Discover our story and mission" },
+    { name: "CURATED", href: "/curated", icon: MapPin, description: "Handpicked luxury experiences" },
+    { name: "BUILD", href: "/build", icon: Hammer, description: "Create your perfect journey" },
+    { name: "OUR JOURNEY", href: "#journey", icon: Route, description: "Follow our travel adventures" },
+    { name: "GALLERY", href: "#gallery", icon: ImageIcon, description: "Visual stories from around the world" },
+  ]
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -18,11 +28,11 @@ export default function HomePage() {
         className="absolute inset-0 w-full h-full bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            "url('https://evvwwutmvhekkcfimedq.supabase.co/storage/v1/object/public/main//pexels-asadphoto-1450353.jpg')",
         }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-amber-900/70 via-amber-800/60 to-orange-900/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-300/50 via-rose-400/50 to-pink-300/40"></div>
       </div>
 
       {/* Header */}
@@ -42,40 +52,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Navigation */}
-            <nav className="hidden lg:flex items-center space-x-12">
-              <Link
-                href="/about"
-                className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
-              >
-                ABOUT
-              </Link>
-              <Link
-                href="/curated"
-                className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
-              >
-                CURATED
-              </Link>
-              <Link
-                href="/build"
-                className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
-              >
-                BUILD
-              </Link>
-              <Link
-                href="#journey"
-                className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
-              >
-                OUR JOURNEY
-              </Link>
-              <Link
-                href="#gallery"
-                className="text-white hover:text-amber-200 transition-colors font-medium tracking-wide text-sm uppercase"
-              >
-                GALLERY
-              </Link>
-            </nav>
-
             {/* Right Side */}
             <div className="flex items-center space-x-6">
               {/* Language Selector */}
@@ -83,11 +59,6 @@ export default function HomePage() {
                 <span className="text-sm font-medium tracking-wide">EN</span>
                 <ChevronDown className="h-4 w-4" />
               </div>
-
-              {/* Get Started Button */}
-              <Button className="hidden md:flex bg-transparent border-2 border-white text-white hover:bg-white hover:text-amber-900 px-6 py-2 rounded-full font-medium tracking-wide text-sm uppercase transition-all duration-300" asChild>
-                <Link href="/dashboard/client">GET STARTED</Link>
-              </Button>
 
               {/* Mobile Menu */}
               <Button
@@ -102,58 +73,109 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md border-t border-white/10"
-          >
-            <nav className="container mx-auto px-6 py-6 space-y-4">
-              <Link
-                href="/about"
-                className="block text-white text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                ABOUT
-              </Link>
-              <Link
-                href="#curated"
-                className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                CURATED
-              </Link>
-              <Link
-                href="/build"
-                className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                BUILD
-              </Link>
-              <Link
-                href="#journey"
-                className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                OUR JOURNEY
-              </Link>
-              <Link
-                href="#gallery"
-                className="block text-white/80 text-lg font-medium py-3 border-b border-white/10 uppercase tracking-wide"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                GALLERY
-              </Link>
-              <div className="pt-4">
-                <Button className="w-full bg-white text-amber-900 hover:bg-amber-100 py-3 rounded-full font-medium tracking-wide text-sm uppercase" asChild>
-                  <Link href="/dashboard/client">GET STARTED</Link>
-                </Button>
+        {/* Full Screen Menu Modal */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/95 backdrop-blur-md z-50"
+            >
+              <div className="flex h-full">
+                {/* Left Side - Icons */}
+                <div className="w-1/2 flex flex-col justify-center items-center space-y-12">
+                  {menuItems.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: -50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="group cursor-pointer"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false)
+                        // Add navigation logic here if needed
+                      }}
+                    >
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/20 transition-all duration-300"
+                      >
+                        <item.icon className="h-8 w-8 text-white group-hover:text-amber-200 transition-colors duration-300" />
+                      </motion.div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Right Side - Text */}
+                <div className="w-1/2 flex flex-col justify-center space-y-8 pr-12">
+                  {menuItems.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 + 0.2 }}
+                      className="group cursor-pointer"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false)
+                        // Add navigation logic here if needed
+                      }}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <motion.h3
+                          whileHover={{ x: 10 }}
+                          className="text-4xl font-light text-white group-hover:text-amber-200 transition-colors duration-300 uppercase tracking-wider"
+                        >
+                          {item.name}
+                        </motion.h3>
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          whileHover={{ opacity: 1, x: 0 }}
+                          className="opacity-0 group-hover:opacity-100 transition-all duration-300"
+                        >
+                          <ArrowRight className="h-6 w-6 text-amber-200" />
+                        </motion.div>
+                      </div>
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        className="text-amber-200/80 text-lg mt-2 font-light"
+                      >
+                        {item.description}
+                      </motion.p>
+                    </motion.div>
+                  ))}
+                  
+                  {/* Get Started Button */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                    className="pt-8"
+                  >
+                    <Button 
+                      className="bg-white text-amber-900 hover:bg-amber-100 px-8 py-4 rounded-full font-medium tracking-wide text-sm uppercase transition-all duration-300" 
+                      asChild
+                    >
+                      <Link href="/dashboard/client">GET STARTED</Link>
+                    </Button>
+                  </motion.div>
+                </div>
               </div>
-            </nav>
-          </motion.div>
-        )}
+
+              {/* Close Button */}
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="absolute top-8 right-8 w-12 h-12 rounded-full border-2 border-white/30 text-white hover:bg-white/10 flex items-center justify-center transition-all duration-300"
+              >
+                <X className="h-5 w-5" />
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Hero Content */}
@@ -178,10 +200,11 @@ export default function HomePage() {
             asChild
             size="lg"
             className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-amber-900 px-12 py-4 text-base font-medium tracking-[0.1em] uppercase rounded-full transition-all duration-300"
+            onClick={() => setIsBookingModalOpen(true)}
           >
-            <Link href="/dashboard/client">
-              EXPERIENCE THE JOURNEY
-            </Link>
+            <button>
+              REQUEST A QUOTE
+            </button>
           </Button>
         </div>
       </div>
@@ -214,6 +237,12 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Booking Modal */}
+      <BookingModal 
+        isOpen={isBookingModalOpen} 
+        onClose={() => setIsBookingModalOpen(false)} 
+      />
     </div>
   )
 }

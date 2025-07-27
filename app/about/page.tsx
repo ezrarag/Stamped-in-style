@@ -340,143 +340,65 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* Section 3 - Vision & Purpose Cards - Completely Redesigned */}
+      {/* Section 3 - Vision & Purpose - Redesigned to match UAE Pavilion style */}
       <motion.section
-        className="py-12 md:py-20 bg-gradient-to-b from-white to-amber-50 min-h-screen flex items-center"
+        className="py-12 md:py-20 bg-amber-50 min-h-screen flex items-center"
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
         <div className="container mx-auto px-4 md:px-6 w-full">
-          {/* Cards Container */}
-          <div className="flex flex-col space-y-4 md:space-y-8 max-w-4xl mx-auto">
-            {/* Vision Card */}
-            <motion.div
-              variants={fadeInUp}
-              className={`relative transition-all duration-700 ease-in-out cursor-pointer ${
-                selectedCard === 0
-                  ? "h-[50vh] md:h-[80vh] z-20"
-                  : selectedCard === 1
-                    ? "h-24 md:h-32 z-10 opacity-50"
-                    : "h-32 md:h-40 z-10"
-              }`}
-              onClick={() => handleCardClick(0)}
-            >
-              <div className="w-full h-full bg-gradient-to-br from-amber-100 to-orange-100 md:hover:from-amber-900 md:hover:to-orange-900 rounded-xl shadow-lg overflow-hidden group transition-all duration-700">
-                {/* Collapsed State */}
-                <div
-                  className={`absolute inset-0 p-6 md:p-8 flex items-center justify-between transition-opacity duration-500 ${
-                    selectedCard === 0 ? "opacity-0 pointer-events-none" : "opacity-100"
-                  }`}
-                >
-                  <div className="flex items-center space-x-4">
-                    <div className="text-2xl md:text-4xl text-amber-700 group-hover:text-white transition-colors duration-700">
-                      🧭
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-semibold text-amber-900 group-hover:text-white transition-colors duration-700">
-                      Our Vision
-                    </h3>
-                  </div>
-                  <div className="text-amber-700 group-hover:text-white transition-colors duration-700">
-                    <ChevronDown className="h-5 w-5 md:h-6 md:w-6" />
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+            {/* Vision Column */}
+            <motion.div variants={fadeInUp} className="relative">
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                {/* Image */}
+                <div className="relative h-64 lg:h-80">
+                  <img
+                    src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Modern terraced garden landscape"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-
-                {/* Expanded State */}
-                <div
-                  className={`absolute inset-0 p-6 md:p-8 flex flex-col justify-center text-center transition-opacity duration-500 bg-gradient-to-br from-amber-900 to-orange-900 ${
-                    selectedCard === 0 ? "opacity-100" : "opacity-0 pointer-events-none"
-                  }`}
-                >
-                  <div className="text-4xl md:text-6xl mb-6 md:mb-8">🧭</div>
-                  <h3 className="text-2xl md:text-3xl font-semibold text-white mb-6 md:mb-8">Our Vision</h3>
-                  <p className="text-white text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto">
-                    To reshape modern travel by curating culturally rich, stress-free journeys that make luxury feel
-                    personal, accessible, and grounded — even in an unstable world.
-                  </p>
-                  <div className="mt-6 md:mt-8">
-                    <Button
-                      variant="outline"
-                      className="border-white text-white hover:bg-white hover:text-amber-900 bg-transparent"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setSelectedCard(null)
-                      }}
-                    >
-                      Close
-                    </Button>
-                  </div>
+                {/* Title */}
+                <div className="p-6 lg:p-8 text-center">
+                  <h3 className="text-3xl lg:text-4xl font-serif text-gray-900 font-semibold">
+                    Vision
+                  </h3>
                 </div>
               </div>
             </motion.div>
 
-            {/* Purpose Card */}
-            <motion.div
-              variants={fadeInUp}
-              className={`relative transition-all duration-700 ease-in-out cursor-pointer ${
-                selectedCard === 1
-                  ? "h-[50vh] md:h-[80vh] z-20"
-                  : selectedCard === 0
-                    ? "h-24 md:h-32 z-10 opacity-50"
-                    : "h-32 md:h-40 z-10"
-              }`}
-              onClick={() => handleCardClick(1)}
-            >
-              <div className="w-full h-full bg-gradient-to-br from-orange-100 to-amber-100 md:hover:from-orange-900 md:hover:to-amber-900 rounded-xl shadow-lg overflow-hidden group transition-all duration-700">
-                {/* Collapsed State */}
-                <div
-                  className={`absolute inset-0 p-6 md:p-8 flex items-center justify-between transition-opacity duration-500 ${
-                    selectedCard === 1 ? "opacity-0 pointer-events-none" : "opacity-100"
-                  }`}
-                >
-                  <div className="flex items-center space-x-4">
-                    <div className="text-2xl md:text-4xl text-amber-700 group-hover:text-white transition-colors duration-700">
-                      🌍
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-semibold text-amber-900 group-hover:text-white transition-colors duration-700">
-                      Our Purpose
+            {/* Purpose Column */}
+            <motion.div variants={fadeInUp} className="relative">
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                {/* Image with sculpture */}
+                <div className="relative h-64 lg:h-80">
+                  <img
+                    src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Abstract sculpture with wooden ceiling"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Overlay text */}
+                  <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6 lg:p-8">
+                    <h3 className="text-3xl lg:text-4xl font-sans text-white font-semibold mb-4">
+                      Purpose
                     </h3>
-                  </div>
-                  <div className="text-amber-700 group-hover:text-white transition-colors duration-700">
-                    <ChevronDown className="h-5 w-5 md:h-6 md:w-6" />
-                  </div>
-                </div>
-
-                {/* Expanded State */}
-                <div
-                  className={`absolute inset-0 p-6 md:p-8 flex flex-col justify-center text-center transition-opacity duration-500 bg-gradient-to-br from-orange-900 to-amber-900 ${
-                    selectedCard === 1 ? "opacity-100" : "opacity-0 pointer-events-none"
-                  }`}
-                >
-                  <div className="text-4xl md:text-6xl mb-6 md:mb-8">🌍</div>
-                  <h3 className="text-2xl md:text-3xl font-semibold text-white mb-6 md:mb-8">Our Purpose</h3>
-                  <p className="text-white text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto">
-                    We simplify the overwhelming parts of travel — research, planning, and booking — through customized
-                    experiences that reflect your lifestyle, timing, and dreams. Think of us as your trusted creative
-                    director for unforgettable getaways.
-                  </p>
-                  <div className="mt-6 md:mt-8">
-                    <Button
-                      variant="outline"
-                      className="border-white text-white hover:bg-white hover:text-amber-900 bg-transparent"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setSelectedCard(null)
-                      }}
-                    >
-                      Close
-                    </Button>
+                    <p className="text-white text-sm lg:text-base leading-relaxed">
+                      Bring together people and innovations to address challenges facing humanity and nature.
+                    </p>
                   </div>
                 </div>
+              </div>
+              
+              {/* Nominee badge */}
+              <div className="absolute top-4 right-4 bg-black text-white px-3 py-2 rounded">
+                <div className="text-xs font-bold">W.</div>
+                <div className="text-xs rotate-90 transform origin-center">Nominee</div>
               </div>
             </motion.div>
           </div>
-
-          {/* Mobile Instructions */}
-          <motion.div variants={fadeInUp} className="text-center mt-8 md:hidden">
-            <p className="text-gray-500 text-sm">Tap cards to expand</p>
-          </motion.div>
         </div>
       </motion.section>
 

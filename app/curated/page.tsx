@@ -29,11 +29,30 @@ interface Event {
   highlights?: string[];
 }
 
+// Supabase event structure
+interface CuratedItem {
+  id: string;
+  title: string;
+  description: string;
+  image_url?: string;
+  category: string;
+  type: string;
+  location: string;
+  price?: string;
+  start_date?: string;
+  end_date?: string;
+  created_at: string;
+  is_featured: boolean;
+  highlights?: string[];
+  price_range?: string;
+  distance?: string;
+}
+
 // Sample event data
 const SAMPLE_EVENTS: Event[] = [
   {
     id: "1",
-    title: "Flavors of the UAE: A week-long culinary journey, Week #3",
+    title: "Facmily Christmas Cruise 2025",
     description: "Embark on a delectable journey celebrating the authentic and diverse culinary heritage of the UAE. Experience traditional flavors, modern interpretations, and the stories behind each dish.",
     dateRange: "28 July 2025 - 03 Aug 2025",
     time: "06:00PM to 08:00PM",
@@ -137,7 +156,7 @@ const FILTER_CATEGORIES = {
   distance: ["Nearby", "City Center", "Outskirts", "Remote"]
 };
 
-function Header() {
+function Header({ useAI, onAIToggle }: { useAI: boolean; onAIToggle: () => void }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -202,8 +221,11 @@ function Header() {
             </div>
 
             {/* Switch to AI Button */}
-            <Button className="hidden md:flex bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-full font-medium tracking-wide text-sm uppercase transition-all duration-300">
-              Switch to AI
+            <Button 
+              onClick={onAIToggle}
+              className="hidden md:flex bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-full font-medium tracking-wide text-sm uppercase transition-all duration-300"
+            >
+              {useAI ? "Switch to Database" : "Switch to AI"}
             </Button>
 
             {/* Mobile Menu */}
@@ -263,8 +285,11 @@ function Header() {
                 GALLERY
               </Link>
               <div className="pt-4">
-                <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-full font-medium tracking-wide text-sm uppercase">
-                  Switch to AI
+                <Button 
+                  onClick={onAIToggle}
+                  className="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-full font-medium tracking-wide text-sm uppercase"
+                >
+                  {useAI ? "Switch to Database" : "Switch to AI"}
                 </Button>
               </div>
             </nav>
@@ -658,14 +683,87 @@ function EventCard({ event, onClick }: { event: Event; onClick: () => void }) {
 function CuratedPageContent() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredEvents, setFilteredEvents] = useState<Event[]>(SAMPLE_EVENTS);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [useAI, setUseAI] = useState(false);
   const searchParams = useSearchParams();
+
+  // Convert Supabase data to Event format
+  const convertToEvent = (item: CuratedItem): Event => {
+    const startDate = item.start_date ? new Date(item.start_date) : null;
+    const endDate = item.end_date ? new Date(item.end_date) : null;
+    
+    let dateRange = "";
+    if (startDate && endDate) {
+      dateRange = `${startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+    } else if (startDate) {
+      dateRange = startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    return {
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      dateRange: dateRange,
+      time: "TBD", // You can add time field to Supabase if needed
+      categories: [item.category, item.type],
+      image: item.image_url || "/placeholder.jpg",
+      price: item.price,
+      location: item.location,
+      highlights: item.highlights || [],
+      requirements: [], // Add to Supabase if needed
+      organizer: "", // Add to Supabase if needed
+      contactEmail: "", // Add to Supabase if needed
+      contactPhone: "", // Add to Supabase if needed
+      capacity: 0 // Add to Supabase if needed
+    };
+  };
+
+  // Fetch data from Supabase
+  const fetchEvents = async () => {
+    if (useAI) {
+      // Use AI-generated data (existing functionality)
+      setAllEvents(SAMPLE_EVENTS);
+      setFilteredEvents(SAMPLE_EVENTS);
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const params = new URLSearchParams();
+      
+      // Add search parameter
+      if (searchQuery.trim()) {
+        params.append("search", searchQuery);
+      }
+
+      const response = await fetch(`/api/curated-items?${params.toString()}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch events");
+      }
+
+      const data: CuratedItem[] = await response.json();
+      const convertedEvents = data.map(convertToEvent);
+      
+      setAllEvents(convertedEvents);
+      setFilteredEvents(convertedEvents);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      // Fallback to sample data
+      setAllEvents(SAMPLE_EVENTS);
+      setFilteredEvents(SAMPLE_EVENTS);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Filter events based on selected categories and search query
   useEffect(() => {
-    let filtered = SAMPLE_EVENTS;
+    let filtered = allEvents;
 
     // Filter by search query
     if (searchQuery.trim()) {
@@ -686,7 +784,18 @@ function CuratedPageContent() {
     }
 
     setFilteredEvents(filtered);
-  }, [selectedFilters, searchQuery]);
+  }, [selectedFilters, searchQuery, allEvents]);
+
+  // Fetch data when component mounts or when switching between AI and Supabase
+  useEffect(() => {
+    fetchEvents();
+  }, [useAI, searchQuery]);
+
+  const handleAIToggle = () => {
+    setUseAI(!useAI);
+    setSelectedFilters([]);
+    setSearchQuery("");
+  };
 
   const handleFilterChange = (filter: string) => {
     setSelectedFilters(prev =>
@@ -710,11 +819,11 @@ function CuratedPageContent() {
     setSelectedEvent(null);
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      <main className="container mx-auto px-6 py-8">
+      return (
+      <div className="min-h-screen bg-gray-50">
+        <Header useAI={useAI} onAIToggle={handleAIToggle} />
+        
+        <main className="container mx-auto px-6 py-8">
         {/* Page Title */}
         <div className="mb-8">
           <h1 className="text-4xl font-light text-gray-900 mb-2">Curated Events</h1>
@@ -730,24 +839,31 @@ function CuratedPageContent() {
         />
 
         {/* Events Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence>
-            {filteredEvents.map((event, idx) => (
-              <motion.div
-                key={event.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ delay: idx * 0.1 }}
-              >
-                <EventCard 
-                  event={event} 
-                  onClick={() => handleEventClick(event)}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+            <p className="mt-4 text-gray-600">Loading events...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence>
+              {filteredEvents.map((event, idx) => (
+                <motion.div
+                  key={event.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <EventCard 
+                    event={event} 
+                    onClick={() => handleEventClick(event)}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
 
         {/* Event Modal */}
         {selectedEvent && (

@@ -748,7 +748,7 @@ export default function BuildPage() {
             {/* Navigation */}
             <nav className="hidden lg:flex items-center space-x-12">
               <Link href="/about" className="text-amber-900 hover:text-amber-700 transition-colors font-medium tracking-wide text-sm uppercase">ABOUT</Link>
-              <Link href="#curated" className="text-amber-900 hover:text-amber-700 transition-colors font-medium tracking-wide text-sm uppercase">CURATED</Link>
+              <Link href="/curated" className="text-amber-900 hover:text-amber-700 transition-colors font-medium tracking-wide text-sm uppercase">CURATED</Link>
               <Link href="/build" className="text-amber-900 hover:text-amber-700 transition-colors font-medium tracking-wide text-sm uppercase">BUILD</Link>
               <Link href="#journey" className="text-amber-900 hover:text-amber-700 transition-colors font-medium tracking-wide text-sm uppercase">OUR JOURNEY</Link>
               <Link href="#gallery" className="text-amber-900 hover:text-amber-700 transition-colors font-medium tracking-wide text-sm uppercase">GALLERY</Link>
@@ -793,7 +793,7 @@ export default function BuildPage() {
             <nav className="container mx-auto px-6 py-6 space-y-4">
               {/* Navigation Links */}
               <Link href="/about" className="block text-amber-900 text-lg font-medium py-3 border-b border-amber-100 uppercase tracking-wide" onClick={() => setIsMobileMenuOpen(false)}>ABOUT</Link>
-              <Link href="#curated" className="block text-amber-900/80 text-lg font-medium py-3 border-b border-amber-100 uppercase tracking-wide" onClick={() => setIsMobileMenuOpen(false)}>CURATED</Link>
+              <Link href="/curated" className="block text-amber-900/80 text-lg font-medium py-3 border-b border-amber-100 uppercase tracking-wide" onClick={() => setIsMobileMenuOpen(false)}>CURATED</Link>
               <Link href="/build" className="block text-amber-900/80 text-lg font-medium py-3 border-b border-amber-100 uppercase tracking-wide" onClick={() => setIsMobileMenuOpen(false)}>BUILD</Link>
               <Link href="#journey" className="block text-amber-900/80 text-lg font-medium py-3 border-b border-amber-100 uppercase tracking-wide" onClick={() => setIsMobileMenuOpen(false)}>OUR JOURNEY</Link>
               <Link href="#gallery" className="block text-amber-900/80 text-lg font-medium py-3 border-b border-amber-100 uppercase tracking-wide" onClick={() => setIsMobileMenuOpen(false)}>GALLERY</Link>
