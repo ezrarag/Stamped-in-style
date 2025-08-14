@@ -23,6 +23,10 @@ _This file is a living checklist for ongoing and upcoming tasks. Please update i
 - [ ] **Hotel & Travel Preferences** - Add accommodation and transportation options
 - [ ] **Admin Authentication** - Secure admin dashboard access
 - [ ] **Email Notifications** - Automated emails for booking confirmations and updates
+- [ ] **Landing Page Hero Section** - Add compelling hero section with call-to-action above the form
+- [ ] **Social Proof Section** - Add testimonials, reviews, or trust indicators below the form
+- [ ] **Feature Highlights** - Showcase key benefits like AI planning, curated experiences, and expert guidance
+- [ ] **Contact Information** - Add phone number, email, or live chat options for immediate assistance
 
 ## Backlog
 - [ ] **Dynamic City Card Generation** - Create cards on-the-fly for searched cities with AI-generated descriptions
