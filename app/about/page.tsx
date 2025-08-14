@@ -342,7 +342,7 @@ export default function AboutPage() {
 
       {/* Section 3 - Vision & Purpose - Redesigned to match UAE Pavilion style */}
       <motion.section
-        className="py-12 md:py-20 bg-amber-50 min-h-screen flex items-center"
+        className="py-12 md:py-20 bg-amber-50 min-h-screen flex items-center relative overflow-hidden"
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-100px" }}
@@ -351,8 +351,29 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 md:px-6 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
             {/* Vision Column */}
-            <motion.div variants={fadeInUp} className="relative">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <motion.div 
+              variants={fadeInUp} 
+              className="relative group cursor-pointer"
+              onMouseEnter={() => setSelectedCard(0)}
+              onMouseLeave={() => setSelectedCard(null)}
+            >
+              <motion.div 
+                className={`bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-500 ${
+                  selectedCard === 0 ? 'lg:absolute lg:inset-0 lg:z-50 lg:scale-125 lg:shadow-2xl' : ''
+                }`}
+                animate={selectedCard === 0 ? {
+                  x: '50%',
+                  y: '-50%',
+                  scale: 1.25,
+                  zIndex: 50
+                } : {
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  zIndex: 1
+                }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
                 {/* Image */}
                 <div className="relative h-64 lg:h-80">
                   <img
@@ -360,19 +381,45 @@ export default function AboutPage() {
                     alt="Modern terraced garden landscape"
                     className="w-full h-full object-cover"
                   />
+                  {/* Overlay text - only visible on hover */}
+                  <div className={`absolute inset-0 bg-black/30 flex flex-col justify-end p-6 lg:p-8 transition-opacity duration-300 ${
+                    selectedCard === 0 ? 'opacity-100' : 'opacity-0'
+                  }`}>
+                    <h3 className="text-3xl lg:text-4xl font-sans text-white font-semibold mb-4">
+                      Vision
+                    </h3>
+                    <p className="text-white text-sm lg:text-base leading-relaxed">
+                      Create transformative travel experiences that connect people with the world's most extraordinary destinations.
+                    </p>
+                  </div>
                 </div>
-                {/* Title */}
-                <div className="p-6 lg:p-8 text-center">
-                  <h3 className="text-3xl lg:text-4xl font-serif text-gray-900 font-semibold">
-                    Vision
-                  </h3>
-                </div>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Purpose Column */}
-            <motion.div variants={fadeInUp} className="relative">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <motion.div 
+              variants={fadeInUp} 
+              className="relative group cursor-pointer"
+              onMouseEnter={() => setSelectedCard(1)}
+              onMouseLeave={() => setSelectedCard(null)}
+            >
+              <motion.div 
+                className={`bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-500 ${
+                  selectedCard === 1 ? 'lg:absolute lg:inset-0 lg:z-50 lg:scale-125 lg:shadow-2xl' : ''
+                }`}
+                animate={selectedCard === 1 ? {
+                  x: '-50%',
+                  y: '-50%',
+                  scale: 1.25,
+                  zIndex: 50
+                } : {
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  zIndex: 1
+                }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
                 {/* Image with sculpture */}
                 <div className="relative h-64 lg:h-80">
                   <img
@@ -380,8 +427,10 @@ export default function AboutPage() {
                     alt="Abstract sculpture with wooden ceiling"
                     className="w-full h-full object-cover"
                   />
-                  {/* Overlay text */}
-                  <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6 lg:p-8">
+                  {/* Overlay text - only visible on hover */}
+                  <div className={`absolute inset-0 bg-black/30 flex flex-col justify-end p-6 lg:p-8 transition-opacity duration-300 ${
+                    selectedCard === 1 ? 'opacity-100' : 'opacity-0'
+                  }`}>
                     <h3 className="text-3xl lg:text-4xl font-sans text-white font-semibold mb-4">
                       Purpose
                     </h3>
@@ -390,7 +439,7 @@ export default function AboutPage() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
               
               {/* Nominee badge */}
               <div className="absolute top-4 right-4 bg-black text-white px-3 py-2 rounded">
